@@ -1,3 +1,6 @@
+#/run.py
+#Create an entry point for our app
+
 import os
 
 from src.app import create_app
