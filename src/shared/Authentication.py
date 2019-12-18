@@ -1,3 +1,5 @@
+#src/shared/Authentication
+#define Auth class
 import jwt
 import os
 import datetime
