@@ -19,7 +19,7 @@ def create_app(env_name):
 
     # initializing bcrypt
 
-    bcrypt.init_app(app) 
+    bcrypt.init_app(app)
 
     db.init_app(app)
 
