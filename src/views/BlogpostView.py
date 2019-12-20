@@ -40,6 +40,32 @@ def get_all():
   data = blogpost_schema.dump(posts, many=True).data
   return custom_response(data, 200)
 
+#Update a Blogpost - PUT
+
+@blogpost_api.route('/<int:blogpost_id>', methods=['PUT'])
+@Auth.auth_required
+def update(blogpost_id):
+    """
+    Update A Blogpost
+    """
+    req_data = request.get_json()
+    post = BlogpostModel.get_one_blogpost(blogpost_id)
+    if not post:
+        return custom_response({'error': 'post not found'}, 404)
+    data = blogpost_schema.dump(post).data
+    if data.get('owner_id') != g.user.get('id'):
+        return custom_response({'error': 'permission denied'}, 400)
+
+    data, error = blogpost_schema.load(req_data, partial=True)
+    if error:
+        return custom_response(error, 400)
+    post.update(data)
+
+    data = blogpost_schema.dump(post).data
+    return custom_response(data, 200)
+
+
+
 # Get A Blogpost -GET
 @blogpost_api.route('/<int:blogpost_id>', methods=['GET'])
 def get_one(blogpost_id):
