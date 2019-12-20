@@ -1,3 +1,5 @@
+#/src/views/UserView
+#User API
 from flask import request, json, Response, Blueprint, g
 from ..models.UserModel import UserModel, UserSchema
 from ..shared.Authentication import Auth
